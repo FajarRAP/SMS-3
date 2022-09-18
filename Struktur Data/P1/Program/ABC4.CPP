@@ -1,15 +1,12 @@
-
-#include<iostream.h>
+#include<iostream>
 
 template<class T>
-T Abc(T& a, T& b, T& c)
-{
-   return a+b+b*c+(a+b-c)/(a+b)+4;
+T Abc(T& a, T& b, T& c){
+   return a + b + b * c + (a + b - c) / (a + b) + 4;
 }
 
-void main(void)
-{
+int main(){
    int a = 2, b = 3, c = 4;
-   cout << Abc(a,b,c) << endl;
+   std::cout << Abc(a, b, c) << std::endl;
 }
 
