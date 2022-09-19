@@ -9,88 +9,91 @@ enum sign {plus, minus};
 class Currency{
    public:
       // constructor
-      Currency(sign s = plus, unsigned long d = 0, unsigned int c = 0);
+      Currency(sign tanda = plus, unsigned long dolar = 0, unsigned int sen = 0);
       // destructor
       ~Currency(){}
-      bool Set(sign s, unsigned long d, unsigned int c);
-      bool Set(float a);
-      sign Sign() const {return sgn;}
-      unsigned long Dollars() const {return dollars;}
-      unsigned int Cents() const {return cents;}
+      bool Set(sign tanda, unsigned long dolar, unsigned int sen);
+      bool Set(float duitNya);
+      unsigned long Dollars() const {return dolar;}
+      unsigned int Cents() const {return sen;}
+      sign Sign() const {return tanda;}
       Currency Add(const Currency& x) const;
       Currency& Increment(const Currency& x);
       void Output() const;
+      void cetak(){
+         std::cout<<this->tanda<<" "<<this->dolar<<" "<<this->sen<<std::endl;
+      }
    private:
-      sign sgn;
-      unsigned long dollars;
-      unsigned int cents;
+      sign tanda;
+      unsigned long dolar;
+      unsigned int sen;
 };
 
-Currency::Currency(sign s, unsigned long d, unsigned int c){
-   // Create a Currency object.
-   if (c > 99){// too many cents
+Currency::Currency(sign tanda, unsigned long dolar, unsigned int sen){
+   // Create duitNya Currency object.
+   if (sen > 99){// too many sen
       std::cerr << "Cents should be < 100" << std::endl;
       exit(1);
    }
-   this->sgn = s; 
-   this->dollars = d; 
-   this->cents = c;
+   this->tanda = tanda; 
+   this->dolar = dolar; 
+   this->sen = sen;
 }
 
-bool Currency::Set(sign s, unsigned long d, unsigned int c){
+bool Currency::Set(sign tanda, unsigned long dolar, unsigned int sen){
    // Reset value.
-   if (c > 99){
+   if (sen > 99){
       return false;
    }
-   sgn = s; 
-   dollars = d; 
-   cents = c;
+   this->tanda = tanda; 
+   this->dolar = dolar; 
+   this->sen = sen;
    return true;
 }
    
-bool Currency::Set(float a){
+bool Currency::Set(float duitNya){
    // Reset value.
-   if (a < 0){
-      sgn = minus; 
-      a = -a;
+   if (duitNya < 0){
+      this->tanda = minus; 
+      duitNya = -duitNya;
    }
    else {
-      sgn = plus;
+      this->tanda = plus;
    }
-   dollars = a; // extract integer part
+   this->dolar = duitNya; // extract integer part
    // get two decimal digits
-   cents = (a + 0.001 - dollars) * 100;
+   this->sen = (duitNya + 0.001 - dolar) * 100;
    return true;
 }
 
 Currency Currency::Add(const Currency& x) const{
    // Add x and *this.
-   long a1, a2, a3;
-   Currency ans;
+   long removeCommaDollar[2], hasilTambah;
+   Currency objectTemp;
    // convert invoking object to signed integers
-   a1 = dollars * 100 + cents;
-   if (sgn == minus) {
-      a1 = -a1;
+   removeCommaDollar[0] = dolar * 100 + sen;
+   if (tanda == minus) {
+      removeCommaDollar[0] = -removeCommaDollar[0];
    }
    // convert x to signed integer
-   a2 = x.dollars * 100 + x.cents;
-   if (x.sgn == minus) {
-      a2 = -a2;
+   removeCommaDollar[1] = x.dolar * 100 + x.sen;
+   if (x.tanda == minus) {
+      removeCommaDollar[1] = -removeCommaDollar[1];
    }
-   a3 = a1 + a2;
+   hasilTambah = removeCommaDollar[0] + removeCommaDollar[1];
    
    // convert to currency representation
-   if (a3 < 0) {
-      ans.sgn = minus; 
-      a3 = -a3;
+   if (hasilTambah < 0) {
+      objectTemp.tanda = minus; 
+      hasilTambah = -hasilTambah;
    }
    else {
-      ans.sgn = plus;
+      objectTemp.tanda = plus;
    }
-   ans.dollars = a3 / 100;
-   ans.cents = a3 - ans.dollars * 100;
+   objectTemp.dolar = hasilTambah / 100;
+   objectTemp.sen = hasilTambah - objectTemp.dolar * 100;
    
-   return ans;
+   return objectTemp;
 }
 
 Currency& Currency::Increment(const Currency& x){
@@ -100,15 +103,16 @@ Currency& Currency::Increment(const Currency& x){
 }
 
 void Currency::Output() const{// Output currency value.
-   if (sgn == minus) {
+   if (tanda == minus) {
       std::cout << '-';
    }
-   std::cout << '$' << dollars << '.';
-   if (cents < 10) {
+   std::cout << '$' << dolar << '.';
+   if (sen < 10) {
       std::cout << "0";
-      std::cout << cents;
+      std::cout << sen << std::endl;
+   }else{
+      std::cout << sen << std::endl;
    }
 }
 
 #endif
-
