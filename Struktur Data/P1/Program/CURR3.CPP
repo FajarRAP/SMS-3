@@ -1,21 +1,19 @@
-
 // test currency class
+#include <iostream>
+#include "CURR3.h"
 
-#include <iostream.h>
-#include "curr3.h"
-
-void main(void)
-{
+int main(){
    Currency g, h(plus, 3, 50), i, j;
    g.Set(minus, 2, 25);
    i.Set(-6.45);
    j = h + g;
-   cout << j << endl;
+   std::cout << j << std::endl;
    i += h;
-   cout << i << endl;
+   std::cout << i << std::endl;
    j = i + g + h;
-   cout << j << endl;
+   std::cout << j << std::endl;
    j = (i+=g) + h;
-   cout << j << endl;
-   cout << i << endl;
+   std::cout << j << std::endl;
+   std::cout << i << std::endl;
+   return 0;
 }
