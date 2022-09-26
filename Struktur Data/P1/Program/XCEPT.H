@@ -3,8 +3,8 @@
 #ifndef Xcept_
 #define Xcept_
 
-#include <except.h>
-#include <new.h>
+// #include <except>
+// #include <new.h>
 
 // bad initializers
 class BadInitializers {
@@ -19,12 +19,11 @@ class NoMem {
 };
 
 // change new to throw NoMem instead of xalloc
-void my_new_handler()
-{
+void my_new_handler() {
    throw NoMem();
 };
 
-new_handler Old_Handler_ = set_new_handler(my_new_handler);
+std::new_handler Old_Handler_ = std::set_new_handler(my_new_handler);
 
 // improper array, find, insert, or delete index
 // or deletion from empty structure
