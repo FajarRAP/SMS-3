@@ -1,29 +1,35 @@
 // test linked stack class
 
-#include <iostream.h>
+#include <iostream>
 #include "lstack.h"
 
-void main(void)
+int main()
 {
    int x;
    LinkedStack<int> S;
-   try {S.Add(1).Add(2).Add(3).Add(4);}
-   catch (NoMem) {
-      cout << "Could not complete additions" << endl;
-      }
-   cout << "Stack should be 1234" << endl;
-   cout << "Stack top is " << S.Top() << endl;
-   try {
+   try
+   {
+      S.Add(1).Add(2).Add(3).Add(4);
+   }
+   catch (NoMem)
+   {
+      std::cout << "Could not complete additions" << std::endl;
+   }
+   std::cout << "Stack should be 1234" << std::endl;
+   std::cout << "Stack top is " << S.Top() << std::endl;
+   try
+   {
       S.Delete(x);
-      cout << "Deleted " << x << endl;
+      std::cout << "Deleted " << x << std::endl;
       S.Delete(x);
-      cout << "Deleted " << x << endl;
+      std::cout << "Deleted " << x << std::endl;
       S.Delete(x);
-      cout << "Deleted " << x << endl;
+      std::cout << "Deleted " << x << std::endl;
       S.Delete(x);
-      cout << "Deleted " << x << endl;
-      }
-   catch (OutOfBounds) {
-      cout << "Last delete failed " << endl;
-      }
+      std::cout << "Deleted " << x << std::endl;
+   }
+   catch (OutOfBounds)
+   {
+      std::cout << "Last delete failed " << std::endl;
+   }
 }
